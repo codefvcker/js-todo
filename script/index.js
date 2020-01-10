@@ -58,18 +58,12 @@ list.addEventListener('click', (e) => {
     let buttonId = e.target.getAttribute('data-id');
     let inputLabel = list.querySelector('[for = ' + buttonId + ']').innerHTML;
 
-    todoList.filter((item) => {
-        return item.text !== inputLabel;
+    todoList.map((item, index) => {
+        if (item.text === inputLabel) {
+            todoList.splice(index, 1);
+            localStorage.setItem('todo', JSON.stringify(todoList));
+        }
     })
-
-    localStorage.setItem('todo', JSON.stringify(todoList));
-
-    // todoList.map((item, index) => {
-    //     if (item.text === inputLabel) {
-    //         todoList.splice(index, 1);
-    //         localStorage.setItem('todo', JSON.stringify(todoList));
-    //     }
-    // })
     showList();
 })
 
