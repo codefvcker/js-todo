@@ -35,6 +35,7 @@ function showList() {
         <li>
             <input type='checkbox' id='item_${index}' ${item.checked ? 'checked' : ''} />
             <label for='item_${index}'>${item.text}</label>
+            <button data-id='item_${index}'>Delete</button>
         </li>
         `
     })
@@ -51,10 +52,29 @@ list.addEventListener('change', (e) => {
             localStorage.setItem('todo', JSON.stringify(todoList));
         }
     })
-
-    console.log(inputId);
-    console.log(inputLabel);
 })
+
+list.addEventListener('click', (e) => {
+    let buttonId = e.target.getAttribute('data-id');
+    let inputLabel = list.querySelector('[for = ' + buttonId + ']').innerHTML;
+
+    todoList.filter((item) => {
+        return item.text !== inputLabel;
+    })
+
+    localStorage.setItem('todo', JSON.stringify(todoList));
+
+    // todoList.map((item, index) => {
+    //     if (item.text === inputLabel) {
+    //         todoList.splice(index, 1);
+    //         localStorage.setItem('todo', JSON.stringify(todoList));
+    //     }
+    // })
+    showList();
+})
+
+
+
 
 
 
