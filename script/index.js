@@ -33,13 +33,28 @@ function showList() {
     todoList.map((item, index) => {
         showMessage += `
         <li>
-            <input type='checkbox' id='item_${index}' />
+            <input type='checkbox' id='item_${index}' ${item.checked ? 'checked' : ''} />
             <label for='item_${index}'>${item.text}</label>
         </li>
         `
     })
     list.innerHTML = showMessage;
 }
+
+list.addEventListener('change', (e) => {
+    let inputId = e.target.getAttribute('id');
+    let inputLabel = list.querySelector('[for = ' + inputId + ']').innerHTML;
+
+    todoList.map((item) => {
+        if (item.text === inputLabel) {
+            item.checked = !item.checked;
+            localStorage.setItem('todo', JSON.stringify(todoList));
+        }
+    })
+
+    console.log(inputId);
+    console.log(inputLabel);
+})
 
 
 
