@@ -1,6 +1,7 @@
 let todoMessage = document.querySelector('.message'),
     addTodo = document.querySelector('.add'),
-    list = document.querySelector('.todo');
+    list = document.querySelector('.todo'),
+    listTodo = document.querySelector('.todo_list');
 
 let todoList = [];
 
@@ -66,6 +67,23 @@ list.addEventListener('click', (e) => {
     })
     showList();
 })
+
+list.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    let importantLabel = e.target.innerHTML;
+
+    todoList.map((item) => {
+        if (item.text === importantLabel) {
+            item.important = !item.important;
+        }
+    })
+
+    localStorage.setItem('todo', JSON.stringify(todoList));
+
+})
+
+
+
 
 
 
